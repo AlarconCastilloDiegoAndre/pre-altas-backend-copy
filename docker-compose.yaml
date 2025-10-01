@@ -1,16 +1,41 @@
 version: "3.8"
 
 services:
+  # Servicio de base de datos
+  db:
+    image: postgres:16
+    container_name: pre-altas-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-mi_basededatos}
+    ports:
+      - "${DB_PORT:-5432}:5432" # Puerto externo configurable
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pre-altas-net
+
   # Servicio para producción
   pre-altas-backend:
     container_name: pre-altas-backend
     build:
       context: .
-      target: production   # Usa el target production del Dockerfile
+      target: production
     ports:
-      - "3000:3000"        # Expone el puerto 3000 (host:contenedor)
+      - "3000:3000"
     environment:
       - NODE_ENV=production
+      - DB_HOST=db
+      - DB_PORT=5432 # Puerto interno del contenedor
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_NAME=${DB_NAME:-mi_basededatos}
+    depends_on:
+      - db
+    networks:
+      - pre-altas-net
 
   # Servicio para desarrollo
   pre-altas-backend-dev:
@@ -18,20 +43,34 @@ services:
     restart: unless-stopped
     build:
       context: .
-      target: dev          # Usa el target dev del Dockerfile
+      target: dev
       args:
-        - PORT=${PORT:-3000} # Usa 3000 si PORT no está definido
+        - PORT=${PORT:-3000}
     ports:
-      - "${PORT:-3000}:3000"  # Expone el puerto definido en .env como host:3000 contenedor
-      - "9229:9229"           # Puerto para depuración (Node.js inspector)
+      - "${PORT:-3000}:3000"
+      - "9229:9229"
     env_file:
-      - .env                  # Carga variables de entorno desde el archivo .env
+      - .env
     environment:
       - NODE_ENV=development
       - PORT=${PORT:-3000}
+      - DB_HOST=db
+      - DB_PORT=5432 # Interno siempre es 5432
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_NAME=${DB_NAME:-mi_basededatos}
     volumes:
-      - .:/app                # Monta el código fuente para autorecarga
-      - node_modules:/app/node_modules  # Persiste dependencias para performance
+      - .:/app
+      - node_modules:/app/node_modules
+    depends_on:
+      - db
+    networks:
+      - pre-altas-net
 
 volumes:
-  node_modules:               # Define volumen para node_modules (evita conflictos entre host y contenedor)
+  node_modules:
+  postgres_data:
+
+networks:
+  pre-altas-net:
+    driver: bridge
