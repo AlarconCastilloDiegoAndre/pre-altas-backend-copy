@@ -34,7 +34,7 @@ RUN npm install
 COPY tsconfig*.json $DIR/
 COPY src $DIR/src
 
-EXPOSE $PORT
+EXPOSE 3000
 
 CMD ["npm", "run", "start:dev", "--", "--poll"]
 
@@ -48,7 +48,7 @@ COPY --from=build /usr/bin/dumb-init /usr/bin/dumb-init
 COPY --from=build $DIR/node_modules $DIR/node_modules
 COPY --from=build $DIR/dist $DIR/dist
 
-EXPOSE $PORT
+EXPOSE 3000
 USER $USER
 
 CMD ["dumb-init", "node", "dist/main.js"]
