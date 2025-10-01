@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  # Servicio para producción
+  pre-altas-backend:
+    container_name: pre-altas-backend
+    build:
+      context: .
+      target: production   # Usa el target production del Dockerfile
+    ports:
+      - "3000:3000"        # Expone el puerto 3000 (host:contenedor)
+    environment:
+      - NODE_ENV=production
+
+  # Servicio para desarrollo
+  pre-altas-backend-dev:
+    container_name: pre-altas-backend-dev
+    restart: unless-stopped
+    build:
+      context: .
+      target: dev          # Usa el target dev del Dockerfile
+      args:
+        - PORT=${PORT:-3000} # Usa 3000 si PORT no está definido
+    ports:
+      - "${PORT:-3000}:3000"  # Expone el puerto definido en .env como host:3000 contenedor
+      - "9229:9229"           # Puerto para depuración (Node.js inspector)
+    env_file:
+      - .env                  # Carga variables de entorno desde el archivo .env
+    environment:
+      - NODE_ENV=development
+      - PORT=${PORT:-3000}
+    volumes:
+      - .:/app                # Monta el código fuente para autorecarga
+      - node_modules:/app/node_modules  # Persiste dependencias para performance
+
+volumes:
+  node_modules:               # Define volumen para node_modules (evita conflictos entre host y contenedor)
