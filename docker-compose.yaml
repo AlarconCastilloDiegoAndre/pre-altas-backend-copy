@@ -1,0 +1,75 @@
+version: "3.8"
+
+services:
+  # Servicio de base de datos
+  db:
+    image: postgres:16
+    container_name: pre-altas-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-mi_basededatos}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pre-altas-net
+
+  # Servicio para producción
+  pre-altas-backend:
+    container_name: pre-altas-backend
+    build:
+      context: .
+      target: production
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_NAME=${DB_NAME:-mi_basededatos}
+    depends_on:
+      - db
+    networks:
+      - pre-altas-net
+
+  # Servicio para desarrollo
+  pre-altas-backend-dev:
+    container_name: pre-altas-backend-dev
+    restart: unless-stopped
+    build:
+      context: .
+      target: dev
+    ports:
+      - "${PORT:-3000}:3000"
+      - "9229:9229"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_NAME=${DB_NAME:-mi_basededatos}
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    depends_on:
+      - db
+    networks:
+      - pre-altas-net
+
+volumes:
+  node_modules:
+  postgres_data:
+
+networks:
+  pre-altas-net:
+    driver: bridge
