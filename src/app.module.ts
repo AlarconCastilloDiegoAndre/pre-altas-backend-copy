@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SubjectsModule } from './subjects/subjects.module';
-import { SubjectsController } from './subjects/subjects.controller';
-import { SubjectsService } from './subjects/subjects.service';
 import { StudentsModule } from './students/students.module';
 import { AuthModule } from './auth/auth.module';
 import { PeriodsModule } from './periods/periods.module';
@@ -22,6 +20,7 @@ import { PeriodsModule } from './periods/periods.module';
     }),
     SubjectsModule,
     StudentsModule,
+    PeriodsModule,
     AuthModule,
   ],
   controllers: [],
