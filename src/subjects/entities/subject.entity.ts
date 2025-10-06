@@ -9,6 +9,6 @@ export class Subject {
     unique: true,
   })
   subjectId: number;
-  @Column({ type: 'varchar', length: 30, nullable: false })
+  @Column({ type: 'varchar', length: 100, nullable: false })
   name: string;
 }

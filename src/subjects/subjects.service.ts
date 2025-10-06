@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { CreateSubjectDto } from './dto/create-subject.dto';
 import { UpdateSubjectDto } from './dto/update-subject.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -37,7 +41,9 @@ export class SubjectsService {
    */
   async create(createSubjectDto: CreateSubjectDto) {
     // Buscar si ya existe el id de materia
-    const existing = await this.subjectsRepository.findOne({ where: { subjectId: createSubjectDto.subjectId } });
+    const existing = await this.subjectsRepository.findOne({
+      where: { subjectId: createSubjectDto.subjectId },
+    });
     if (existing) {
       throw new BadRequestException('Ya existe una materia con ese id');
     }
@@ -51,7 +57,9 @@ export class SubjectsService {
    * @returns Promesa con el objeto Subject encontrado.
    */
   async findOne(id: number) {
-    const subject = await this.subjectsRepository.findOne({ where: { subjectId: id } });
+    const subject = await this.subjectsRepository.findOne({
+      where: { subjectId: id },
+    });
     if (!subject) throw new NotFoundException('Materia no encontrada');
     return subject;
   }
@@ -78,5 +86,14 @@ export class SubjectsService {
   async remove(id: number) {
     await this.findOne(id);
     await this.subjectsRepository.delete({ subjectId: id });
+
+    const subject = await this.subjectsRepository.findOne({
+      where: { subjectId: id },
+    });
+
+    if (subject) {
+      throw new NotFoundException('No se pudo eliminar la materia');
+    }
+    return { message: 'Materia eliminado correctamente' };
   }
 }
