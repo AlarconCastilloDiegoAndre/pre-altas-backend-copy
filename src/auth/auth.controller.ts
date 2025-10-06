@@ -1,6 +1,6 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoginStudentDto } from './dto/login-student.dto';
 import { LoginAdminDto } from './dto/login-admin.dto';
 import { CreateStudentDto } from './dto/create-student.dto';
@@ -38,7 +38,6 @@ export class AuthController {
   async studentLogin(
     @Body() loginStudentDto: LoginStudentDto,
     @Res({ passthrough: true }) res: express.Response,
-
   ) {
     const token = await this.authService.studentLogin(loginStudentDto);
     // TODO: Terminar el apartado de las cookies

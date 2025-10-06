@@ -7,6 +7,9 @@ export class LoginAdminDto {
   @IsNotEmpty()
   username: string;
 
-  @ApiProperty({example: 12345678, description: 'Contraseña proporcionada por el administrador'  })
+  @ApiProperty({
+    example: 12345678,
+    description: 'Contraseña proporcionada por el administrador',
+  })
   password: string;
 }
