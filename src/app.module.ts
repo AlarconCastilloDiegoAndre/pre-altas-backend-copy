@@ -21,6 +21,7 @@ import { PeriodsModule } from './periods/periods.module';
       autoLoadEntities: true,
     }),
     SubjectsModule,
+    StudentsModule,
     AuthModule,
   ],
   controllers: [],
