@@ -1,22 +1,7 @@
-import {
-  Controller,
-  Get,
-  Patch,
-  Param,
-  Delete,
-  Body,
-  ParseIntPipe,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { UpdateStudentDto } from './dto/update-student.dto';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBody,
-  ApiParam,
-  ApiQuery,
-} from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags, } from '@nestjs/swagger';
 import * as nestjsPaginate from 'nestjs-paginate';
 import { Student } from './entities/student.entity';
 
