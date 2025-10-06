@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  BadRequestException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException, } from '@nestjs/common';
 import { CreateSubjectDto } from './dto/create-subject.dto';
 import { UpdateSubjectDto } from './dto/update-subject.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -85,15 +81,12 @@ export class SubjectsService {
    */
   async remove(id: number) {
     await this.findOne(id);
-    await this.subjectsRepository.delete({ subjectId: id });
-
-    const subject = await this.subjectsRepository.findOne({
-      where: { subjectId: id },
-    });
-
-    if (subject) {
-      throw new NotFoundException('No se pudo eliminar la materia');
+    const deleteResult = await this.subjectsRepository.delete({ subjectId: id });
+    if (deleteResult.affected === 0) {
+      throw new InternalServerErrorException(
+        `No se pudo eliminar la materia con ID "${id}"`,
+      );
     }
-    return { message: 'Materia eliminado correctamente' };
+    return { message: 'Materia eliminada correctamente' };
   }
 }

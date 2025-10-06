@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { CreateStudentDto } from '../auth/dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
@@ -40,7 +41,7 @@ export class StudentsService {
         'plan',
       ],
       defaultSortBy: [['studentId', 'ASC']],
-      searchableColumns: ['studentId','name'],
+      searchableColumns: ['studentId', 'name'],
     });
   }
 
@@ -82,6 +83,14 @@ export class StudentsService {
    */
   async remove(id: number) {
     await this.findOne(id);
-    await this.studentsRepository.delete({ studentId: id });
+    const deleteResult = await this.studentsRepository.delete({
+      studentId: id,
+    });
+    if (deleteResult.affected === 0) {
+      throw new InternalServerErrorException(
+        `No se pudo eliminar al estudiante con ID "${id}"`,
+      );
+    }
+    return { message: 'Estudiante eliminado correctamente' };
   }
 }

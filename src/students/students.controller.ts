@@ -1,11 +1,10 @@
 import {
   Controller,
   Get,
-  Post,
-  Body,
   Patch,
   Param,
   Delete,
+  Body,
   ParseIntPipe,
 } from '@nestjs/common';
 import { StudentsService } from './students.service';
@@ -21,14 +20,21 @@ import {
 import * as nestjsPaginate from 'nestjs-paginate';
 import { Student } from './entities/student.entity';
 
-// TODO: Asegurar esta ruta para que los estudiantes no puedan acceder y solo los admins
+/**
+ * Controlador encargado de gestionar las rutas relacionadas con la entidad Student (Estudiante).
+ * Incluye endpoints para listar, consultar, actualizar y eliminar estudiantes.
+ * El endpoint de listado soporta paginación, búsqueda y ordenamiento.
+ */
 @ApiTags('students')
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Obtener todos los estudiantes con paginación' })
+  @ApiOperation({
+    summary:
+      'Obtener todos los estudiantes con paginación, búsqueda y ordenamiento',
+  })
   @ApiQuery({
     name: 'page',
     required: false,
@@ -56,56 +62,30 @@ export class StudentsController {
     type: String,
     example: ['studentId:ASC'],
     description:
-      'Ordenar por columna y nombre. Ejemplo: studentId:ASC o name:DESC',
+      'Ordenar por columna y dirección. Ejemplo: studentId:ASC o name:DESC',
   })
   @ApiResponse({
     status: 200,
     description:
-      'Lista de estudiantes obtenida correctamente con metadatos de paginación.',
-    schema: {
-      example: {
-        data: [
-          {
-            studentId: 12345,
-            name: 'Juan Pérez',
-            email: 'juan@example.com',
-            groupNo: 101,
-            semester: 3,
-            plan: 'Ingeniería en Sistemas',
-          },
-        ],
-        meta: {
-          totalItems: 42,
-          itemCount: 10,
-          itemsPerPage: 10,
-          totalPages: 5,
-          currentPage: 1,
-        },
-        links: {
-          first: '/students?page=1&limit=10',
-          previous: '',
-          next: '/students?page=2&limit=10',
-          last: '/students?page=5&limit=10',
-        },
-      },
-    },
+      'Lista de estudiantes obtenida correctamente con metadatos de paginación, búsqueda y ordenamiento.',
   })
-  async findAll(
+  findAll(
     @nestjsPaginate.Paginate() query: nestjsPaginate.PaginateQuery,
   ): Promise<nestjsPaginate.Paginated<Student>> {
     return this.studentsService.findAll(query);
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Obtener un estudiante por ID' })
+  @ApiOperation({ summary: 'Obtener un estudiante por su ID (expediente)' })
   @ApiParam({
     name: 'id',
     type: Number,
-    description: 'ID (expediente) del estudiante',
+    description: 'ID (expediente) del estudiante. Ejemplo: 202312345',
+    example: 202312345,
   })
   @ApiResponse({
     status: 200,
-    description: 'Estudiante encontrado.',
+    description: 'Estudiante encontrado (sin el campo contraseña).',
   })
   @ApiResponse({ status: 404, description: 'Estudiante no encontrado.' })
   findOne(@Param('id', ParseIntPipe) id: string) {
@@ -113,11 +93,12 @@ export class StudentsController {
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Actualizar un estudiante por ID' })
+  @ApiOperation({ summary: 'Actualizar los datos de un estudiante por ID' })
   @ApiParam({
     name: 'id',
     type: Number,
-    description: 'ID (expediente) del estudiante',
+    description: 'ID (expediente) del estudiante. Ejemplo: 202312345',
+    example: 202312345,
   })
   @ApiBody({
     type: UpdateStudentDto,
@@ -127,6 +108,13 @@ export class StudentsController {
         value: {
           name: 'Juan Pérez Actualizado',
           groupNo: 102,
+        },
+      },
+      ejemplo2: {
+        summary: 'Actualizar plan y semestre',
+        value: {
+          plan: 'Licenciatura en Matemáticas',
+          semester: 6,
         },
       },
     },
@@ -144,11 +132,12 @@ export class StudentsController {
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Eliminar un estudiante por ID' })
+  @ApiOperation({ summary: 'Eliminar un estudiante por su ID (expediente)' })
   @ApiParam({
     name: 'id',
     type: Number,
-    description: 'ID (expediente) del estudiante',
+    description: 'ID (expediente) del estudiante. Ejemplo: 202312345',
+    example: 202312345,
   })
   @ApiResponse({
     status: 200,
