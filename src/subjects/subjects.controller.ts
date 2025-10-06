@@ -26,7 +26,10 @@ export class SubjectsController {
 
   @Get()
   @ApiOperation({ summary: 'Obtener todas las materias' })
-  @ApiResponse({ status: 200, description: 'Lista de materias obtenida correctamente.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de materias obtenida correctamente.',
+  })
   findAll() {
     return this.subjectsService.findAll();
   }
@@ -34,7 +37,10 @@ export class SubjectsController {
   @Post()
   @ApiOperation({ summary: 'Crear una nueva materia' })
   @ApiResponse({ status: 201, description: 'Materia creada correctamente.' })
-  @ApiResponse({ status: 400, description: 'Datos inválidos o materia duplicada.' })
+  @ApiResponse({
+    status: 400,
+    description: 'Datos inválidos o materia duplicada.',
+  })
   @ApiBody({ type: CreateSubjectDto })
   create(@Body() createSubjectDto: CreateSubjectDto) {
     return this.subjectsService.create(createSubjectDto);
@@ -63,7 +69,10 @@ export class SubjectsController {
       },
     },
   })
-  @ApiResponse({ status: 200, description: 'Materia actualizada correctamente.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Materia actualizada correctamente.',
+  })
   @ApiResponse({ status: 404, description: 'Materia no encontrada.' })
   update(
     @Param('id', ParseIntPipe) id: string,
