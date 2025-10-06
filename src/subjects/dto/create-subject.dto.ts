@@ -30,6 +30,8 @@ export class CreateSubjectDto {
   })
   @IsNotEmpty({ message: 'El nombre de la materia es un campo requerido' })
   @IsString({ message: 'El nombre de la materia debe ser un texto' })
-  @Length(3, 100, { message: 'El nombre de la materia debe tener entre 3 y 100 caracteres' })
+  @Length(3, 100, {
+    message: 'El nombre de la materia debe tener entre 3 y 100 caracteres',
+  })
   name: string;
 }
