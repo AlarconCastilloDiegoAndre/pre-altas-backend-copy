@@ -1,9 +1,14 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity("subjects")
+@Entity('subjects')
 export class Subject {
-  @PrimaryColumn({ type: 'int' , name: 'subject_id', unique: true })
+  @PrimaryColumn({
+    type: 'int',
+    name: 'subject_id',
+    nullable: false,
+    unique: true,
+  })
   subjectId: number;
-  @Column({type: 'varchar', length: 30, nullable: false})
+  @Column({ type: 'varchar', length: 30, nullable: false })
   name: string;
 }
