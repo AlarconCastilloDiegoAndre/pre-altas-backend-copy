@@ -12,14 +12,16 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { ROLE } from './constants/roles.constants';
+import { Admin } from '../admins/entities/admin.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(Student)
     private readonly studentRepository: Repository<Student>,
+    @InjectRepository(Admin)
+    private readonly adminRepository: Repository<Admin>,
     private readonly jwtService: JwtService,
-    // TODO: Agregar el repositorio de admin cuando este terminado
   ) {}
 
   async studentRegister(createStudentDto: CreateStudentDto) {
@@ -74,5 +76,18 @@ export class AuthService {
     });
   }
 
-  async adminLogin(loginAdminDto: LoginAdminDto) {}
+  async adminLogin(loginAdminDto: LoginAdminDto) {
+    const admin = await this.adminRepository.findOne({
+      where: {
+        username: loginAdminDto.username,
+        password: loginAdminDto.password,
+      },
+    });
+
+    if (!admin)
+      throw new UnauthorizedException('Usuario y/o contraseña incorrectos');
+
+    // TODO: Implementar comparacion con contraseña hasheada
+    return { message: 'Login exitoso' };
+  }
 }
