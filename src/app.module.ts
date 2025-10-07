@@ -4,6 +4,7 @@ import { SubjectsModule } from './subjects/subjects.module';
 import { StudentsModule } from './students/students.module';
 import { AuthModule } from './auth/auth.module';
 import { PeriodsModule } from './periods/periods.module';
+import { AdminsModule } from './admins/admins.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { PeriodsModule } from './periods/periods.module';
     StudentsModule,
     PeriodsModule,
     AuthModule,
+    AdminsModule,
   ],
   controllers: [],
   providers: [],
