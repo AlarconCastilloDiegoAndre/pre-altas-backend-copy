@@ -5,6 +5,8 @@ import { StudentsModule } from './students/students.module';
 import { AuthModule } from './auth/auth.module';
 import { PeriodsModule } from './periods/periods.module';
 import { AdminsModule } from './admins/admins.module';
+import { SeedModule } from './seed/seed.module';
+import { CareersModule } from './careers/careers.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { AdminsModule } from './admins/admins.module';
     PeriodsModule,
     AuthModule,
     AdminsModule,
+    SeedModule,
+    CareersModule,
   ],
   controllers: [],
   providers: [],
