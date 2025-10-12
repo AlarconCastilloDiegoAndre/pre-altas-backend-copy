@@ -18,7 +18,7 @@ import { CareerSubject } from './entity/career-subject.entity';
  * Proporciona métodos para crear, obtener, actualizar y eliminar asignaciones.
  */
 @Injectable()
-export class CareerSubjectsService implements OnModuleInit {
+export class CareerSubjectsService {
   constructor(
     @InjectRepository(CareerSubject)
     private readonly careerSubjectsRepository: Repository<CareerSubject>,
@@ -27,14 +27,6 @@ export class CareerSubjectsService implements OnModuleInit {
     @InjectRepository(Subject)
     private readonly subjectsRepository: Repository<Subject>,
   ) {}
-
-  async onModuleInit() {}
-
-  async findAll() {
-    return await this.careerSubjectsRepository.find({
-      relations: ['career', 'subject'],
-    });
-  }
 
   async create(dto: CreateCareerSubjectDto) {
     const career = await this.careersRepository.findOne({
@@ -123,7 +115,7 @@ export class CareerSubjectsService implements OnModuleInit {
    * Obtiene todas las asignaciones de materias para una carrera y semestre específico.
    * @param careerId ID de la carrera.
    * @param semester Número de semestre.
-   * @returns Promesa con arreglo de asignaciones (CareerSubject).
+   * @returns Promesa con arreglo de asignaciones (CareerSubject), cada una con solo el id de la carrera.
    * @throws NotFoundException si no se encuentra la carrera.
    */
   async findByCareerAndSemester(
@@ -135,7 +127,7 @@ export class CareerSubjectsService implements OnModuleInit {
     });
     if (!career) throw new NotFoundException('Carrera no encontrada');
 
-    const assignments = await this.careerSubjectsRepository.find({
+    const asignaciones = await this.careerSubjectsRepository.find({
       where: {
         career: { careerId },
         semester,
@@ -143,6 +135,10 @@ export class CareerSubjectsService implements OnModuleInit {
       relations: ['career', 'subject'],
     });
 
-    return assignments;
+    // Transformar las asignaciones para que solo incluyan careerId
+    return asignaciones.map(asignacion => ({
+      ...asignacion,
+      career: asignacion.career.careerId,
+    }));
   }
 }
