@@ -4,6 +4,7 @@ import { UpdateSubjectDto } from './dto/update-subject.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Subject } from './entities/subject.entity';
 import { Repository } from 'typeorm';
+import { paginate, Paginated, PaginateQuery } from 'nestjs-paginate';
 
 /**
  * Service encargado de manejar la lógica de negocio para la entidad Subject (Materia).
@@ -21,11 +22,16 @@ export class SubjectsService {
   ) {}
 
   /**
-   * Obtiene todas las materias registradas en la base de datos.
-   * @returns Promesa con un arreglo de objetos Subject.
+   * Obtiene todas las materias registradas en la base de datos con paginación, búsqueda y ordenamiento.
+   * @param query Parámetros de paginación, búsqueda y ordenamiento.
+   * @returns Promesa con un objeto paginado de materias.
    */
-  async findAll() {
-    return await this.subjectsRepository.find();
+  async findAll(query: PaginateQuery): Promise<Paginated<Subject>> {
+    return paginate(query, this.subjectsRepository, {
+      searchableColumns: ['subjectId', 'name'],
+      sortableColumns: ['subjectId', 'name'],
+      defaultSortBy: [['subjectId', 'ASC']],
+    });
   }
 
   /**
@@ -81,7 +87,9 @@ export class SubjectsService {
    */
   async remove(id: number) {
     await this.findOne(id);
-    const deleteResult = await this.subjectsRepository.delete({ subjectId: id });
+    const deleteResult = await this.subjectsRepository.delete({
+      subjectId: id,
+    });
     if (deleteResult.affected === 0) {
       throw new InternalServerErrorException(
         `No se pudo eliminar la materia con ID "${id}"`,

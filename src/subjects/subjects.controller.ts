@@ -13,6 +13,9 @@ import { CreateSubjectDto } from './dto/create-subject.dto';
 import { UpdateSubjectDto } from './dto/update-subject.dto';
 import { ApiCrudDocs } from '../docs/api-crud-docs.decorator';
 import { ApiTags } from '@nestjs/swagger';
+import * as nestjsPaginate from 'nestjs-paginate';
+import { Paginated } from 'nestjs-paginate';
+import { Subject } from './entities/subject.entity';
 
 @ApiTags('subjects')
 @Controller('subjects')
@@ -21,13 +24,51 @@ export class SubjectsController {
 
   @Get()
   @ApiCrudDocs({
-    summary: 'Obtener todas las materias',
+    summary:
+      'Obtener todas las materias con paginación, búsqueda y ordenamiento',
+    queries: [
+      {
+        name: 'page',
+        required: false,
+        type: Number,
+        example: 1,
+        description: 'Número de página (default: 1)',
+      },
+      {
+        name: 'limit',
+        required: false,
+        type: Number,
+        example: 10,
+        description: 'Cantidad de registros por página (default: 10)',
+      },
+      {
+        name: 'search',
+        required: false,
+        type: String,
+        description: 'Texto a buscar (por nombre o subjectId)',
+      },
+      {
+        name: 'sortBy',
+        required: false,
+        isArray: true,
+        type: String,
+        example: ['subjectId:ASC'],
+        description:
+          'Ordenar por columna y dirección. Ejemplo: subjectId:ASC o name:DESC',
+      },
+    ],
     responses: [
-      { status: 200, description: 'Lista de materias obtenida correctamente.' },
+      {
+        status: 200,
+        description:
+          'Lista de materias obtenida correctamente con metadatos de paginación, búsqueda y ordenamiento.',
+      },
     ],
   })
-  findAll() {
-    return this.subjectsService.findAll();
+  findAll(
+    @nestjsPaginate.Paginate() query: nestjsPaginate.PaginateQuery,
+  ): Promise<Paginated<Subject>> {
+    return this.subjectsService.findAll(query);
   }
 
   @Post()

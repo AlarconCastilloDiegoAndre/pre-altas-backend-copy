@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryColumn } from 'typeorm';
 @Entity('subjects')
 export class Subject {
   @PrimaryColumn({
-    type: 'int',
+    type: 'smallint',
     name: 'subject_id',
     nullable: false,
     unique: true,
