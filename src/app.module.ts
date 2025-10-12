@@ -7,6 +7,7 @@ import { PeriodsModule } from './periods/periods.module';
 import { AdminsModule } from './admins/admins.module';
 import { SeedModule } from './seed/seed.module';
 import { CareersModule } from './careers/careers.module';
+import { CareerSubjectsModule } from './career-subjects/career-subjects.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { CareersModule } from './careers/careers.module';
     AdminsModule,
     SeedModule,
     CareersModule,
+    CareerSubjectsModule,
   ],
   controllers: [],
   providers: [],

@@ -1,0 +1,614 @@
+[
+  {
+    "subjectId": 2001,
+    "name": "Administración"
+  },
+  {
+    "subjectId": 2002,
+    "name": "Introducción a las Tecnologías de Información"
+  },
+  {
+    "subjectId": 2003,
+    "name": "Ética y Legislación Informática"
+  },
+  {
+    "subjectId": 2004,
+    "name": "Matemáticas Computacionales"
+  },
+  {
+    "subjectId": 2005,
+    "name": "Introducción a la Programación"
+  },
+  {
+    "subjectId": 2006,
+    "name": "Desarrollo Humano I"
+  },
+  {
+    "subjectId": 2007,
+    "name": "Introducción a la Investigación"
+  },
+  {
+    "subjectId": 2008,
+    "name": "Deportes I"
+  },
+  {
+    "subjectId": 2009,
+    "name": "Diseño de Interfaces de Software"
+  },
+  {
+    "subjectId": 2010,
+    "name": "Principios de Electrónica"
+  },
+  {
+    "subjectId": 2011,
+    "name": "Cálculo Diferencial e Integral"
+  },
+  {
+    "subjectId": 2012,
+    "name": "Álgebra Lineal"
+  },
+  {
+    "subjectId": 2013,
+    "name": "Programación de Sistemas Embebidos"
+  },
+  {
+    "subjectId": 2014,
+    "name": "Desarrollo Humano II"
+  },
+  {
+    "subjectId": 2015,
+    "name": "Inglés I"
+  },
+  {
+    "subjectId": 2016,
+    "name": "Deportes II"
+  },
+  {
+    "subjectId": 2017,
+    "name": "Análisis y Diseño de Sistemas Computacionales"
+  },
+  {
+    "subjectId": 2018,
+    "name": "Electrónica Analógica y Digital"
+  },
+  {
+    "subjectId": 2019,
+    "name": "Probabilidad y Estadística"
+  },
+  {
+    "subjectId": 2020,
+    "name": "Cálculo Vectorial"
+  },
+  {
+    "subjectId": 2021,
+    "name": "Algoritmos y Estructura de Datos"
+  },
+  {
+    "subjectId": 2022,
+    "name": "Desarrollo Humano III"
+  },
+  {
+    "subjectId": 2023,
+    "name": "Inglés II"
+  },
+  {
+    "subjectId": 2024,
+    "name": "Deportes III"
+  },
+  {
+    "subjectId": 2025,
+    "name": "Fundamentos de Redes"
+  },
+  {
+    "subjectId": 2026,
+    "name": "Lógica Digital"
+  },
+  {
+    "subjectId": 2027,
+    "name": "Sistemas Operativos"
+  },
+  {
+    "subjectId": 2028,
+    "name": "Ecuaciones Diferenciales"
+  },
+  {
+    "subjectId": 2029,
+    "name": "Programación de Bajo Nivel"
+  },
+  {
+    "subjectId": 2031,
+    "name": "Inglés III"
+  },
+  {
+    "subjectId": 2032,
+    "name": "Protocolos de Ruteo"
+  },
+  {
+    "subjectId": 2033,
+    "name": "Sistemas Digitales"
+  },
+  {
+    "subjectId": 2034,
+    "name": "Administración de Sistemas Operativos"
+  },
+  {
+    "subjectId": 2035,
+    "name": "Series y Transformadas de Fourier"
+  },
+  {
+    "subjectId": 2036,
+    "name": "Instrumentación Virtual"
+  },
+  {
+    "subjectId": 2038,
+    "name": "Inglés IV"
+  },
+  {
+    "subjectId": 2039,
+    "name": "Administración y Seguridad de Redes"
+  },
+  {
+    "subjectId": 2040,
+    "name": "Sistemas de Propósito General"
+  },
+  {
+    "subjectId": 2041,
+    "name": "Arquitecturas de Modelos Cloud"
+  },
+  {
+    "subjectId": 2042,
+    "name": "Desarrollo con Sistemas Mínimos"
+  },
+  {
+    "subjectId": 2043,
+    "name": "Recuperación de la Información y Base de Datos"
+  },
+  {
+    "subjectId": 2044,
+    "name": "Inglés V"
+  },
+  {
+    "subjectId": 2045,
+    "name": "Protocolos de Comunicación"
+  },
+  {
+    "subjectId": 2046,
+    "name": "Tópico I"
+  },
+  {
+    "subjectId": 2047,
+    "name": "Administración de Proyectos de Computación"
+  },
+  {
+    "subjectId": 2048,
+    "name": "Sistemas de Tiempo Real"
+  },
+  {
+    "subjectId": 2049,
+    "name": "Inglés VI"
+  },
+  {
+    "subjectId": 2050,
+    "name": "Inteligencia Artificial"
+  },
+  {
+    "subjectId": 2051,
+    "name": "Tópico II"
+  },
+  {
+    "subjectId": 2052,
+    "name": "Gestión de las TI"
+  },
+  {
+    "subjectId": 2053,
+    "name": "Servicio Social"
+  },
+  {
+    "subjectId": 2054,
+    "name": "Prácticas Profesionales"
+  },
+  {
+    "subjectId": 2055,
+    "name": "Contabilidad Financiera"
+  },
+  {
+    "subjectId": 2056,
+    "name": "Principios de Electrónica y Circuitos Lógicos"
+  },
+  {
+    "subjectId": 2057,
+    "name": "Programación Orientada a Objetos"
+  },
+  {
+    "subjectId": 2058,
+    "name": "Redes I"
+  },
+  {
+    "subjectId": 2059,
+    "name": "Ingeniería de Requerimientos"
+  },
+  {
+    "subjectId": 2060,
+    "name": "Algoritmos"
+  },
+  {
+    "subjectId": 2061,
+    "name": "Cálculo Diferencial e Integral"
+  },
+  {
+    "subjectId": 2062,
+    "name": "Base de Datos I"
+  },
+  {
+    "subjectId": 2063,
+    "name": "Redes II"
+  },
+  {
+    "subjectId": 2064,
+    "name": "Desarrollo de Sistemas en Internet"
+  },
+  {
+    "subjectId": 2065,
+    "name": "Estructuras de Datos"
+  },
+  {
+    "subjectId": 2066,
+    "name": "Teoría de la Computación"
+  },
+  {
+    "subjectId": 2067,
+    "name": "Base de Datos II"
+  },
+  {
+    "subjectId": 2069,
+    "name": "Diseño y Soporte de Redes de Computadoras"
+  },
+  {
+    "subjectId": 2070,
+    "name": "Sistemas Básicos, Arquitectura y Procesamiento"
+  },
+  {
+    "subjectId": 2071,
+    "name": "Sistemas Distribuidos"
+  },
+  {
+    "subjectId": 2072,
+    "name": "Frameworks y Arquitecturas de Software"
+  },
+  {
+    "subjectId": 2073,
+    "name": "Administración de Base de Datos"
+  },
+  {
+    "subjectId": 2074,
+    "name": "Sistemas Operativos"
+  },
+  {
+    "subjectId": 2075,
+    "name": "Inteligencia Artificial"
+  },
+  {
+    "subjectId": 2076,
+    "name": "Desarrollo de Aplicaciones Móviles"
+  },
+  {
+    "subjectId": 2077,
+    "name": "Aplicaciones de Big Data"
+  },
+  {
+    "subjectId": 2078,
+    "name": "Servicios Cloud"
+  },
+  {
+    "subjectId": 2079,
+    "name": "Administración de Proyectos de Software"
+  },
+  {
+    "subjectId": 2080,
+    "name": "Sistemas Inmersivos y de Realidad Aumentada"
+  },
+  {
+    "subjectId": 2081,
+    "name": "Pruebas y Aseguramiento de la Calidad del Software"
+  },
+  {
+    "subjectId": 2082,
+    "name": "Inteligencia de Negocios"
+  },
+  {
+    "subjectId": 2083,
+    "name": "Arquitecturas de TI Empresariales"
+  },
+  {
+    "subjectId": 2084,
+    "name": "Fundamentos de Comunicaciones"
+  },
+  {
+    "subjectId": 2089,
+    "name": "Telefonía"
+  },
+  {
+    "subjectId": 2090,
+    "name": "Redes III"
+  },
+  {
+    "subjectId": 2095,
+    "name": "Comunicaciones Ópticas"
+  },
+  {
+    "subjectId": 2096,
+    "name": "Redes IV"
+  },
+  {
+    "subjectId": 2097,
+    "name": "Sistemas de Comunicaciones Móviles"
+  },
+  {
+    "subjectId": 2098,
+    "name": "Telemática"
+  },
+  {
+    "subjectId": 2099,
+    "name": "Seguridad en Redes"
+  },
+  {
+    "subjectId": 2100,
+    "name": "Líneas de Transmisión"
+  },
+  {
+    "subjectId": 2101,
+    "name": "Circuitos de Radio Frecuencia"
+  },
+  {
+    "subjectId": 2102,
+    "name": "Comunicaciones Satelitales"
+  },
+  {
+    "subjectId": 2103,
+    "name": "Proyectos de Telecomunicaciones"
+  },
+  {
+    "subjectId": 2104,
+    "name": "Gestión de Recursos Humanos"
+  },
+  {
+    "subjectId": 2105,
+    "name": "Contabilidad Financiera"
+  },
+  {
+    "subjectId": 2106,
+    "name": "Sistemas Básicos, Procesamiento"
+  },
+  {
+    "subjectId": 2107,
+    "name": "Análisis y Diseño de Sistemas de Información"
+  },
+  {
+    "subjectId": 2108,
+    "name": "Mercadotecnia Estratégica"
+  },
+  {
+    "subjectId": 2109,
+    "name": "Ingeniería de Requerimientos"
+  },
+  {
+    "subjectId": 2111,
+    "name": "Base de Datos"
+  },
+  {
+    "subjectId": 2112,
+    "name": "Introducción a las Redes"
+  },
+  {
+    "subjectId": 2113,
+    "name": "TI y Estrategias de Negocios"
+  },
+  {
+    "subjectId": 2114,
+    "name": "Programación con Acceso a Datos"
+  },
+  {
+    "subjectId": 2116,
+    "name": "Ruteo y Conmutación Básicos"
+  },
+  {
+    "subjectId": 2117,
+    "name": "Liderazgo Estratégico"
+  },
+  {
+    "subjectId": 2118,
+    "name": "Virtualización"
+  },
+  {
+    "subjectId": 2119,
+    "name": "Desarrollo de Sistemas en Internet"
+  },
+  {
+    "subjectId": 2120,
+    "name": "Sistemas para la Toma de Decisiones"
+  },
+  {
+    "subjectId": 2122,
+    "name": "Administración de Proyectos de TI"
+  },
+  {
+    "subjectId": 2123,
+    "name": "Fundamentos de Cloud Computing"
+  },
+  {
+    "subjectId": 2126,
+    "name": "Administración de la Cadena de Suministros"
+  },
+  {
+    "subjectId": 2127,
+    "name": "Finanzas Corporativas"
+  },
+  {
+    "subjectId": 2128,
+    "name": "Planeación y Programación Detallada de Recursos"
+  },
+  {
+    "subjectId": 2129,
+    "name": "Estadística Inferencial"
+  },
+  {
+    "subjectId": 2130,
+    "name": "Principios de Electrónica y Circuitos Lógicos"
+  },
+  {
+    "subjectId": 2131,
+    "name": "Gestión Estratégica de Operaciones y Recursos"
+  },
+  {
+    "subjectId": 2132,
+    "name": "Aplicaciones Empresariales"
+  },
+  {
+    "subjectId": 2133,
+    "name": "Marketing"
+  },
+  {
+    "subjectId": 2134,
+    "name": "Administración de Redes"
+  },
+  {
+    "subjectId": 2135,
+    "name": "Programación de Apps"
+  },
+  {
+    "subjectId": 2136,
+    "name": "Big Data y Sistemas de Base de Datos Relacionales"
+  },
+  {
+    "subjectId": 2137,
+    "name": "Administración de Proyectos Informáticos"
+  },
+  {
+    "subjectId": 2138,
+    "name": "Inteligencia Artificial"
+  },
+  {
+    "subjectId": 2139,
+    "name": "Inteligencia de Negocios I"
+  },
+  {
+    "subjectId": 2140,
+    "name": "Desarrollo de Sistemas en Internet"
+  },
+  {
+    "subjectId": 2141,
+    "name": "Inteligencia de Negocios II"
+  },
+  {
+    "subjectId": 2150,
+    "name": "Metodología de la Investigación y Divulgación"
+  },
+  {
+    "subjectId": 2151,
+    "name": "Sistemas Digitales e Interfaces de Hardware"
+  },
+  {
+    "subjectId": 2152,
+    "name": "Cálculo"
+  },
+  {
+    "subjectId": 2153,
+    "name": "Inteligencia Artificial"
+  },
+  {
+    "subjectId": 2154,
+    "name": "Arquitectura de Sistemas"
+  },
+  {
+    "subjectId": 2155,
+    "name": "Diseño de Algoritmos"
+  },
+  {
+    "subjectId": 2156,
+    "name": "Estructuras de Datos y Modelos de Grafos"
+  },
+  {
+    "subjectId": 2157,
+    "name": "Herramientas para Ciencia de Datos"
+  },
+  {
+    "subjectId": 2158,
+    "name": "Teoría de la Probabilidad"
+  },
+  {
+    "subjectId": 2159,
+    "name": "Teoría de la Información"
+  },
+  {
+    "subjectId": 2160,
+    "name": "Visualización y Despliegue de Datos"
+  },
+  {
+    "subjectId": 2161,
+    "name": "Administración de Proyectos"
+  },
+  {
+    "subjectId": 2162,
+    "name": "Modelos Predictivos"
+  },
+  {
+    "subjectId": 2163,
+    "name": "Sistemas Dinámicos"
+  },
+  {
+    "subjectId": 2164,
+    "name": "Redes y Arquitecturas Convergentes"
+  },
+  {
+    "subjectId": 2165,
+    "name": "Repositorios y Centros de Datos Distribuidos"
+  },
+  {
+    "subjectId": 2166,
+    "name": "Instrumentación y Sensores para IoT"
+  },
+  {
+    "subjectId": 2167,
+    "name": "Emprendimiento Empresarial"
+  },
+  {
+    "subjectId": 2168,
+    "name": "Aprendizaje Máquina"
+  },
+  {
+    "subjectId": 2169,
+    "name": "Infraestructura y Servicios de la Nube"
+  },
+  {
+    "subjectId": 2170,
+    "name": "Minería de Datos"
+  },
+  {
+    "subjectId": 2171,
+    "name": "Seguridad de la Información"
+  },
+  {
+    "subjectId": 2172,
+    "name": "Implementación de Sistemas Interoperables"
+  },
+  {
+    "subjectId": 2173,
+    "name": "Diseño y Desarrollo de Proyectos para la Industria 4.0"
+  },
+  {
+    "subjectId": 2174,
+    "name": "Análisis de Datos no Estructurados y Minería de Textos"
+  },
+  {
+    "subjectId": 2175,
+    "name": "Sistemas Distribuidos y Tolerantes a Fallos"
+  },
+  {
+    "subjectId": 2176,
+    "name": "Análisis y Pronóstico de Series Temporales"
+  },
+  {
+    "subjectId": 2177,
+    "name": "Big Data y Analítica de Datos"
+  }
+]
