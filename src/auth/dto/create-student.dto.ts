@@ -78,8 +78,8 @@ export class CreateStudentDto {
   semester: number;
 
   @ApiProperty({
-    description: 'Plan de estudios al que pertenece el estudiante',
-    example: 'SOFT18',
+    description: 'ID de la carrera asociada al estudiante',
+    example: 'SOF18',
     minLength: 2,
     maxLength: 255,
   })
@@ -87,5 +87,5 @@ export class CreateStudentDto {
   @IsNotEmpty()
   @MinLength(2)
   @MaxLength(255)
-  plan: string;
+  career_id: string;
 }

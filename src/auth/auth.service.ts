@@ -13,6 +13,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { ROLE } from './constants/roles.constants';
 import { Admin } from '../admins/entities/admin.entity';
+import { Career } from '../careers/entities/career.entity';
 
 @Injectable()
 export class AuthService {
@@ -21,6 +22,8 @@ export class AuthService {
     private readonly studentRepository: Repository<Student>,
     @InjectRepository(Admin)
     private readonly adminRepository: Repository<Admin>,
+    @InjectRepository(Career)
+    private readonly careerRepository: Repository<Career>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -41,6 +44,14 @@ export class AuthService {
 
     if (existingEmail) {
       throw new BadRequestException('El email ya está registrado');
+    }
+
+    // Verificar que el plan de estudios exista en la bd
+    const existingCareer = await this.careerRepository.findOne({
+      where: { careerId: createStudentDto.career_id },
+    });
+    if (!existingCareer) {
+      throw new BadRequestException('La carrera no existe en la base de datos');
     }
 
     const student = this.studentRepository.create(createStudentDto);

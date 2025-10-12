@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Career } from '../../careers/entities/career.entity';
 
 @Entity('students')
 export class Student {
@@ -25,6 +26,7 @@ export class Student {
   @Column({ type: 'smallint', nullable: false })
   semester: number;
 
-  @Column({ type: 'varchar', nullable: false })
-  plan: string;
+  @ManyToOne(() => Career)
+  @JoinColumn({ name: 'career_id', referencedColumnName: 'careerId' })
+  career: Career;
 }
