@@ -1,14 +1,15 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity('subjects')
-export class Subject {
+@Entity('careers')
+export class Career {
   @PrimaryColumn({
-    type: 'smallint',
-    name: 'subject_id',
+    name: 'career_id',
+    type: 'varchar',
+    length: 5,
     nullable: false,
-    unique: true,
   })
-  subjectId: number;
+  careerId: string;
+
   @Column({ type: 'varchar', length: 100, nullable: false })
   name: string;
 }

@@ -32,7 +32,7 @@ export class StudentsService {
         'email',
         'groupNo',
         'semester',
-        'plan',
+        'career.careerId',
       ],
       defaultSortBy: [['studentId', 'ASC']],
       searchableColumns: ['studentId', 'name'],

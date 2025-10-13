@@ -11,13 +11,11 @@ import {
 import { SubjectsService } from './subjects.service';
 import { CreateSubjectDto } from './dto/create-subject.dto';
 import { UpdateSubjectDto } from './dto/update-subject.dto';
-import {
-  ApiBody,
-  ApiOperation,
-  ApiParam,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiCrudDocs } from '../docs/api-crud-docs.decorator';
+import { ApiTags } from '@nestjs/swagger';
+import * as nestjsPaginate from 'nestjs-paginate';
+import { Paginated } from 'nestjs-paginate';
+import { Subject } from './entities/subject.entity';
 
 @ApiTags('subjects')
 @Controller('subjects')
@@ -25,28 +23,59 @@ export class SubjectsController {
   constructor(private readonly subjectsService: SubjectsService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Obtener todas las materias' })
-  @ApiResponse({
-    status: 200,
-    description: 'Lista de materias obtenida correctamente.',
+  @ApiCrudDocs({
+    summary:
+      'Obtener todas las materias con paginación, búsqueda y ordenamiento',
+    queries: [
+      {
+        name: 'page',
+        required: false,
+        type: Number,
+        example: 1,
+        description: 'Número de página (default: 1)',
+      },
+      {
+        name: 'limit',
+        required: false,
+        type: Number,
+        example: 10,
+        description: 'Cantidad de registros por página (default: 10)',
+      },
+      {
+        name: 'search',
+        required: false,
+        type: String,
+        description: 'Texto a buscar (por nombre o subjectId)',
+      },
+      {
+        name: 'sortBy',
+        required: false,
+        isArray: true,
+        type: String,
+        example: ['subjectId:ASC'],
+        description:
+          'Ordenar por columna y dirección. Ejemplo: subjectId:ASC o name:DESC',
+      },
+    ],
+    responses: [
+      {
+        status: 200,
+        description:
+          'Lista de materias obtenida correctamente con metadatos de paginación, búsqueda y ordenamiento.',
+      },
+    ],
   })
-  findAll() {
-    return this.subjectsService.findAll();
+  findAll(
+    @nestjsPaginate.Paginate() query: nestjsPaginate.PaginateQuery,
+  ): Promise<Paginated<Subject>> {
+    return this.subjectsService.findAll(query);
   }
 
   @Post()
-  @ApiOperation({ summary: 'Crear una nueva materia' })
-  @ApiResponse({
-    status: 201,
-    description: 'Materia creada correctamente.',
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Datos inválidos o materia duplicada.',
-  })
-  @ApiBody({
-    type: CreateSubjectDto,
-    examples: {
+  @ApiCrudDocs({
+    summary: 'Crear una nueva materia',
+    bodyType: CreateSubjectDto,
+    bodyExamples: {
       ejemplo1: {
         summary: 'Crear materia de Introduccion a la programación',
         value: {
@@ -62,42 +91,40 @@ export class SubjectsController {
         },
       },
     },
+    responses: [
+      { status: 201, description: 'Materia creada correctamente.' },
+      { status: 400, description: 'Datos inválidos o materia duplicada.' },
+    ],
   })
   create(@Body() createSubjectDto: CreateSubjectDto) {
     return this.subjectsService.create(createSubjectDto);
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Obtener una materia por ID' })
-  @ApiParam({
-    name: 'id',
-    type: Number,
-    description: 'ID de la materia. Ejemplo: 2005',
-    example: 2005,
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Materia encontrada.',
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Materia no encontrada.',
+  @ApiCrudDocs({
+    summary: 'Obtener una materia por ID',
+    paramName: 'id',
+    paramType: Number,
+    paramDescription: 'ID de la materia. Ejemplo: 2005',
+    paramExample: 2005,
+    responses: [
+      { status: 200, description: 'Materia encontrada.' },
+      { status: 404, description: 'Materia no encontrada.' },
+    ],
   })
   findOne(@Param('id', ParseIntPipe) id: string) {
     return this.subjectsService.findOne(+id);
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Actualizar una materia por ID' })
-  @ApiParam({
-    name: 'id',
-    type: Number,
-    description: 'ID de la materia. Ejemplo: 2005',
-    example: 2005,
-  })
-  @ApiBody({
-    type: UpdateSubjectDto,
-    examples: {
+  @ApiCrudDocs({
+    summary: 'Actualizar una materia por ID',
+    paramName: 'id',
+    paramType: Number,
+    paramDescription: 'ID de la materia. Ejemplo: 2005',
+    paramExample: 2005,
+    bodyType: UpdateSubjectDto,
+    bodyExamples: {
       ejemplo1: {
         summary: 'Actualizar nombre de la materia',
         value: {
@@ -111,14 +138,10 @@ export class SubjectsController {
         },
       },
     },
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Materia actualizada correctamente.',
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Materia no encontrada.',
+    responses: [
+      { status: 200, description: 'Materia actualizada correctamente.' },
+      { status: 404, description: 'Materia no encontrada.' },
+    ],
   })
   update(
     @Param('id', ParseIntPipe) id: string,
@@ -128,20 +151,16 @@ export class SubjectsController {
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Eliminar una materia por ID' })
-  @ApiParam({
-    name: 'id',
-    type: Number,
-    description: 'ID de la materia. Ejemplo: 2005',
-    example: 2005,
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Materia eliminada correctamente.',
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Materia no encontrada.',
+  @ApiCrudDocs({
+    summary: 'Eliminar una materia por ID',
+    paramName: 'id',
+    paramType: Number,
+    paramDescription: 'ID de la materia. Ejemplo: 2005',
+    paramExample: 2005,
+    responses: [
+      { status: 200, description: 'Materia eliminada correctamente.' },
+      { status: 404, description: 'Materia no encontrada.' },
+    ],
   })
   remove(@Param('id', ParseIntPipe) id: string) {
     return this.subjectsService.remove(+id);

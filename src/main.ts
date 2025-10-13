@@ -10,7 +10,7 @@ async function bootstrap() {
 
   // Cookies
   // TODO: Acabar de implementar las cookies
-  app.use(cookieParser())
+  app.use(cookieParser());
 
   //Validacion de los DTOs
   app.useGlobalPipes(
@@ -36,7 +36,12 @@ async function bootstrap() {
     .addCookieAuth(TOKEN_NAME)
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory);
+  SwaggerModule.setup('api', app, documentFactory, {
+    swaggerOptions: {
+      operationsSorter: 'alpha', // Ordena los endpoints alfabéticamente
+      tagsSorter: 'alpha',       // Ordena los tags alfabéticamente
+    },
+  });
 
   await app.listen(process.env.PORT ?? 3000);
 }
