@@ -5,6 +5,6 @@
  * Se utiliza tanto para firmar el JWT como para proteger rutas.
  */
 export enum ROLE {
-  STUDENTS = 'Student',
+  STUDENT = 'Student',
   ADMIN = 'Admin',
 }

@@ -83,7 +83,7 @@ export class AuthService {
     // Genera JWT con el payload de student
     return this.jwtService.sign({
       sub: student.studentId,
-      role: ROLE.STUDENTS,
+      roles: [ROLE.STUDENT],
     });
   }
 
