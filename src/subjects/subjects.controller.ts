@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { SubjectsService } from './subjects.service';
 import { CreateSubjectDto } from './dto/create-subject.dto';
@@ -16,7 +17,12 @@ import { ApiTags } from '@nestjs/swagger';
 import * as nestjsPaginate from 'nestjs-paginate';
 import { Paginated } from 'nestjs-paginate';
 import { Subject } from './entities/subject.entity';
+import { AuthGuard } from '../auth/guard/auth.guard';
+import { RolesGuard } from '../auth/guard/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { ROLE } from '../auth/constants/roles.constants';
 
+@UseGuards(AuthGuard, RolesGuard)
 @ApiTags('subjects')
 @Controller('subjects')
 export class SubjectsController {
@@ -70,7 +76,7 @@ export class SubjectsController {
   ): Promise<Paginated<Subject>> {
     return this.subjectsService.findAll(query);
   }
-
+  @Roles(ROLE.ADMIN)
   @Post()
   @ApiCrudDocs({
     summary: 'Crear una nueva materia',
@@ -116,6 +122,7 @@ export class SubjectsController {
     return this.subjectsService.findOne(+id);
   }
 
+  @Roles(ROLE.ADMIN)
   @Patch(':id')
   @ApiCrudDocs({
     summary: 'Actualizar una materia por ID',
@@ -150,6 +157,7 @@ export class SubjectsController {
     return this.subjectsService.update(+id, updateSubjectDto);
   }
 
+  @Roles(ROLE.ADMIN)
   @Delete(':id')
   @ApiCrudDocs({
     summary: 'Eliminar una materia por ID',
