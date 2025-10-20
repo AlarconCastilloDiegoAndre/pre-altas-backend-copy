@@ -8,6 +8,8 @@ import { AdminsModule } from './admins/admins.module';
 import { SeedModule } from './seed/seed.module';
 import { CareersModule } from './careers/careers.module';
 import { CareerSubjectsModule } from './career-subjects/career-subjects.module';
+import { EnrollmentsModule } from './enrollments/enrollments.module';
+import { SubmissionLogsModule } from './submission-logs/submission-logs.module';
 
 @Module({
   imports: [
@@ -30,6 +32,9 @@ import { CareerSubjectsModule } from './career-subjects/career-subjects.module';
     SeedModule,
     CareersModule,
     CareerSubjectsModule,
+    EnrollmentsModule,
+    SubmissionLogsModule
+
   ],
   controllers: [],
   providers: [],
