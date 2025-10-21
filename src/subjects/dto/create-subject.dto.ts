@@ -2,9 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsNumber,
-  IsPositive,
   IsString,
   Length,
+  Max,
+  Min,
 } from 'class-validator';
 
 export class CreateSubjectDto {
@@ -17,7 +18,8 @@ export class CreateSubjectDto {
   })
   @IsNotEmpty({ message: 'El id de materia es un campo requerido' })
   @IsNumber({}, { message: 'El id de materia debe ser un número' })
-  @IsPositive({ message: 'El id de materia debe ser un número positivo' })
+  @Min(1, { message: 'El número mínimo es 1' })
+  @Max(32767, { message: 'El número máximo es 32767' })
   subjectId: number;
 
   @ApiProperty({
@@ -30,6 +32,8 @@ export class CreateSubjectDto {
   })
   @IsNotEmpty({ message: 'El nombre de la materia es un campo requerido' })
   @IsString({ message: 'El nombre de la materia debe ser un texto' })
-  @Length(3, 30, { message: 'El nombre de la materia debe tener entre 3 y 30 caracteres' })
+  @Length(3, 100, {
+    message: 'El nombre de la materia debe tener entre 3 y 100 caracteres',
+  })
   name: string;
 }

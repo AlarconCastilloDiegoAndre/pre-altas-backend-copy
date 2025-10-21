@@ -1,0 +1,26 @@
+[
+  {
+    "careerId": "INF18",
+    "name": "Licenciatura en Informática"
+  },
+  {
+    "careerId": "LAT18",
+    "name": "Licenciatura en Administración de Tecnologías de Información"
+  },
+  {
+    "careerId": "SOF18",
+    "name": "Ingeniería de Software"
+  },
+  {
+    "careerId": "INC18",
+    "name": "Ingeniería en Computación"
+  },
+  {
+    "careerId": "TEL18",
+    "name": "Ingeniería en Telecomunicaciones y Redes"
+  },
+  {
+    "careerId": "CAD22",
+    "name": "Ingeniería en Ciencia y Analítica de Datos"
+  }
+]

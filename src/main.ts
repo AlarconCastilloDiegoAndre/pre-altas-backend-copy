@@ -2,9 +2,15 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { TOKEN_NAME } from './auth/constants/jwt.constants';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Cookies
+  // TODO: Acabar de implementar las cookies
+  app.use(cookieParser());
 
   //Validacion de los DTOs
   app.useGlobalPipes(
@@ -27,9 +33,15 @@ async function bootstrap() {
     .setTitle('Pre-altas backend')
     .setDescription('API para la pre-altas de materias')
     .setVersion('1.0')
+    .addCookieAuth(TOKEN_NAME)
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory);
+  SwaggerModule.setup('api', app, documentFactory, {
+    swaggerOptions: {
+      operationsSorter: 'alpha', // Ordena los endpoints alfabéticamente
+      tagsSorter: 'alpha',       // Ordena los tags alfabéticamente
+    },
+  });
 
   await app.listen(process.env.PORT ?? 3000);
 }
