@@ -37,6 +37,9 @@ API REST desarrollada con NestJS para el sistema de pre-altas de materias univer
 Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
 
 ```bash
+# URL del Front
+URL_FRONT=http://localhost:5173
+
 # Puerto de la aplicación
 PORT=3000
 
