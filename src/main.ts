@@ -24,9 +24,10 @@ async function bootstrap() {
 
   // Hobilitar CORS para todas las rutas
   app.enableCors({
-    origin: '*', // Permitir todas las solicitudes de origen
+    origin: process.env.URL_FRONT, // Permitir todas las solicitudes de origen
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos permitidos
     allowedHeaders: 'Content-Type, Accept', // Encabezados permitidos
+    credentials: true,
   });
 
   const config = new DocumentBuilder()
@@ -44,5 +45,7 @@ async function bootstrap() {
   });
 
   await app.listen(process.env.PORT ?? 3000);
+  console.log(`Server started on port ${process.env.PORT}`);
+  console.log(`Front URL ${process.env.URL_FRONT}`);
 }
 bootstrap();

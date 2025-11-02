@@ -14,6 +14,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ROLE } from './constants/roles.constants';
 import { Admin } from '../admins/entities/admin.entity';
 import { Career } from '../careers/entities/career.entity';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -98,7 +99,68 @@ export class AuthService {
     if (!admin)
       throw new UnauthorizedException('Usuario y/o contraseña incorrectos');
 
+
     // TODO: Implementar comparacion con contraseña hasheada
-    return { message: 'Login exitoso' };
+    const payload = {
+      sub: admin.username, // O admin.id, lo que uses como "subject"
+      roles: [ROLE.ADMIN],
+    };
+
+    const token = this.jwtService.sign(payload);
+
+    return {
+      token: token,
+      profile: {
+        name: admin.name,
+        username: admin.username,
+        department: admin.assignedDepartment,
+        rol: ROLE.ADMIN,
+      }
+    };
+  }
+
+  async getProfile(user: JwtPayload) {
+    // Verificar si el que hizo la peticion es un estudiante o un admin
+    if (user.roles.includes(ROLE.ADMIN)) {
+      const admin = await this.adminRepository.findOne({
+        where: { username: user.sub as string},
+      });
+
+      // Si el token es válido, pero el usuario ya no existe en la BD, forzar un error de "No autorizado".
+      if (!admin) {
+        throw new UnauthorizedException('El usuario admin de este token ya no existe');
+      }
+
+      return {
+        name: admin.name,
+        username: admin.username,
+        department: admin.assignedDepartment,
+        rol: 'Admin',
+      };
+
+
+
+    } else if (user.roles.includes(ROLE.STUDENT)) { // (Usar 'else if' es más seguro que 'else')
+      const student = await this.studentRepository.findOne({
+        where: { studentId: user.sub as number },
+      });
+
+      // Si el token es válido, pero el usuario ya no existe en la BD, forzar un error de "No autorizado".
+      if (!student) {
+        throw new UnauthorizedException('El usuario estudiante de este token ya no existe');
+      }
+
+      return {
+        studentId: student.studentId,
+        name: student.name,
+        groupNo: student.groupNo,
+        semester: student.semester,
+        career_id: student.career,
+        rol: 'Student',
+      };
+    }
+
+    // Si el token no tiene un rol ni de Admin ni de Student
+    throw new UnauthorizedException('Rol de usuario no reconocido');
   }
 }
