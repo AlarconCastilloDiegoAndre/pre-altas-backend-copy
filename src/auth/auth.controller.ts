@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiTags } from '@nestjs/swagger';
 import { LoginStudentDto } from './dto/login-student.dto';
@@ -7,6 +15,8 @@ import { CreateStudentDto } from './dto/create-student.dto';
 import { TOKEN_NAME } from './constants/jwt.constants';
 import express from 'express';
 import { ApiCrudDocs } from '../docs/api-crud-docs.decorator';
+import { AuthGuard } from './guard/auth.guard';
+import { RolesGuard } from './guard/roles.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -40,13 +50,11 @@ export class AuthController {
     @Res({ passthrough: true }) res: express.Response,
   ) {
     const token = await this.authService.studentLogin(loginStudentDto);
-    // TODO: Terminar el apartado de las cookies
     res.cookie(TOKEN_NAME, token, {
-      httpOnly: false, // Solo accesible por el backend (más seguro)
+      httpOnly: true, // Solo accesible por el backend (más seguro) TODO: CAMBIARLO A TRUE PARA OCULTAR EL JWT
       secure: true, // Solo transmitida por HTTPS
       sameSite: 'none', // Necesario si vas a compartir la cookie entre dominios
       maxAge: 30 * 60 * 1000, // 30 minutos
-      // domain: 'localhost',
     });
     return { message: 'Login exitoso' };
   }
@@ -64,12 +72,55 @@ export class AuthController {
     @Body() loginAdminDto: LoginAdminDto,
     @Res({ passthrough: true }) response: express.Response,
   ) {
-    const token = await this.authService.adminLogin(loginAdminDto);
+    const { token, profile } = await this.authService.adminLogin(loginAdminDto);
     response.cookie(TOKEN_NAME, token, {
       httpOnly: true, // Solo accesible por el backend (más seguro)
       secure: true, // Solo transmitida por HTTPS
       sameSite: 'none', // Necesario si vas a compartir la cookie entre dominios
       maxAge: 30 * 60 * 1000, // 30 minutos
     });
+
+    return profile;
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('me')
+  @ApiCrudDocs({
+    summary:
+      'Verifica la sesión y obtiene el perfil(informacion) del usuario (Admin o Alumno) a partir del JWT.',
+    responses: [
+      { status: 200, description: 'Perfil del usuario devuelto exitosamente.' },
+      {
+        status: 401,
+        description:
+          'No autorizado. Token no válido, expirado o el usuario ya no existe.',
+      },
+    ],
+  })
+  async getProfile(@Req() req: any) {
+    return this.authService.getProfile(req.user);
+  }
+
+  @Post('logout')
+  @UseGuards(AuthGuard)
+  @ApiCrudDocs({
+    summary: 'Cierra la sesión del usuario (Admin o Alumno)',
+    responses: [
+      { status: 200, description: 'Sesión cerrada exitosamente.' },
+      {
+        status: 401,
+        description: 'No autorizado (ninguna sesión activa para cerrar).',
+      },
+    ],
+  })
+  async logout(@Res({ passthrough: true }) response: express.Response) {
+    // Se borra la cookie
+    response.clearCookie(TOKEN_NAME, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+    });
+
+    return { message: 'Sesión cerrada exitosamente' };
   }
 }
